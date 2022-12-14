@@ -67,17 +67,6 @@ class PageController extends Controller
     {
         return view('pages/inbox');
     }
-
-    /**
-     * Show specified view.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function categoriesIngredients()
-    {
-        return view('pages/categories-ingredients');
-    }
     /**
      * Show specified view.
      *

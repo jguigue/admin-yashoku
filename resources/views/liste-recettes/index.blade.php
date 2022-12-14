@@ -1,7 +1,7 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>Catégories d'ingrédients - Yashoku dashboard</title>
+<title>Catégories des recettes - Yashoku dashboard</title>
 @endsection
 
 @section('subcontent')
@@ -22,7 +22,7 @@
                         <div class="modal-body p-0">
                             <div class="p-5 text-center">
                                 <div class="text-3xl mt-5 mb-5">Créer une catégorie</div>
-                                <form action="{{ route('categoriesingredients.store') }}" method="POST"
+                                <form action="{{ route('categoriesrecettes.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
@@ -92,28 +92,28 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($categoriesingredients as $categoriesingredient)
+            @foreach ($categoriesrecettes as $categoriesrecette)
 
             <tr>
 
 
                 <td class="w-40">
-                    {{ $categoriesingredient->id}}
+                    {{ $categoriesrecette->id}}
                 </td>
                 <td>
-                    {{ $categoriesingredient->nom_categorie }}
+                    {{ $categoriesrecette->nom_categorie }}
                 </td>
                 <td class="table-report__action w-56">
                     <div class="flex justify-center items-center">
                         <a class="flex items-center mr-3" data-tw-toggle="modal"
-                            data-tw-target="#create-modal-edit{{ $categoriesingredient->id }}" href="{{ route('categoriesingredients.edit',$categoriesingredient->id) }}>
+                            data-tw-target="#create-modal-edit{{ $categoriesrecette->id }}" href="{{ route('categoriesrecettes.edit',$categoriesrecette->id) }}>
                                 <i data-lucide=" check-square" class="w-4 h-4 mr-1"></i> Modifier
                         </a>
 
                         <!-- BEGIN: Modal Toggle -->
                         <div class="text-center">
                             <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal"
-                                data-tw-target="#delete-modal-preview{{ $categoriesingredient->id }}">
+                                data-tw-target="#delete-modal-preview{{ $categoriesrecette->id }}">
                                 <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Supprimer
                             </a>
                         </div>
@@ -123,7 +123,7 @@
                         <div class="text-center">
                         </div>
                         <!-- BEGIN: Modal Content -->
-                        <div id="create-modal-edit{{ $categoriesingredient->id }}" class="modal" tabindex="-1"
+                        <div id="create-modal-edit{{ $categoriesrecette->id }}" class="modal" tabindex="-1"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -131,7 +131,7 @@
                                         <div class="p-5 text-center">
                                             <div class="text-3xl mt-5 mb-5">Créer une catégorie</div>
                                             <form
-                                                action="{{ route('categoriesingredients.update',$categoriesingredient->id) }}"
+                                                action="{{ route('categoriesrecettes.update',$categoriesrecette->id) }}"
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
@@ -140,7 +140,7 @@
                                                         <div class="form-group">
                                                             <input type="text" name="nom_categorie"
                                                                 class="form-control mt-5"
-                                                                value="{{ $categoriesingredient->nom_categorie }}"
+                                                                value="{{ $categoriesrecette->nom_categorie }}"
                                                                 placeholder="Nom de la catégorie d'ingrédients">
                                                             @error('nom_categorie')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <!-- END: Modal Content -->
-                    <div id="delete-modal-preview{{ $categoriesingredient->id }}" class="modal" tabindex="-1"
+                    <div id="delete-modal-preview{{ $categoriesrecette->id }}" class="modal" tabindex="-1"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -176,7 +176,7 @@
                                         <button type="button" data-tw-dismiss="modal"
                                             class="btn btn-outline-secondary w-24 mr-1">Annuler</button>
                                         <form
-                                            action="{{ route('categoriesingredients.destroy',$categoriesingredient->id) }}"
+                                            action="{{ route('categoriesrecettes.destroy',$categoriesrecette->id) }}"
                                             method="Post">
 
                                             @csrf

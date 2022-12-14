@@ -6,6 +6,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\DarkModeController;
 use App\Http\Controllers\ColorSchemeController;
 use App\Http\Controllers\CategoriesIngredientsController;
+use App\Http\Controllers\ListeIngredientsController;
+use App\Http\Controllers\CategoriesRecettesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,12 +37,13 @@ Route::middleware('auth')->group(function() {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::controller(PageController::class)->group(function() {
         Route::resource('categoriesingredients', CategoriesIngredientsController::class);
+        Route::resource('liste-ingredients', ListeIngredientsController::class);
+        Route::resource('categoriesrecettes', CategoriesRecettesController::class);
         Route::get('/', 'dashboardOverview1')->name('dashboard-overview-1');
         Route::get('dashboard-overview-2-page', 'dashboardOverview2')->name('dashboard-overview-2');
         Route::get('dashboard-overview-3-page', 'dashboardOverview3')->name('dashboard-overview-3');
         Route::get('dashboard-overview-4-page', 'dashboardOverview4')->name('dashboard-overview-4');
         Route::get('categories-recettes-page', 'categoriesRecettes')->name('categories-recettes');
-        Route::get('categories-ingredients-page', 'categoriesIngredients')->name('categories-ingredients');
         Route::get('add-product-page', 'addProduct')->name('add-product');
         Route::get('product-list-page', 'productList')->name('product-list');
         Route::get('product-grid-page', 'productGrid')->name('product-grid');

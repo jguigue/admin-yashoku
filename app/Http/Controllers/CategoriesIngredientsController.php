@@ -37,9 +37,7 @@ class CategoriesIngredientsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'address' => 'required',
+            'nom_categorie' => 'required',
         ]);
         
         CategoriesIngredients::create($request->post());
@@ -79,9 +77,7 @@ class CategoriesIngredientsController extends Controller
     public function update(Request $request, CategoriesIngredients $categoriesingredient)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'address' => 'required',
+            'nom_categorie' => 'required',
         ]);
         
         $categoriesingredient->fill($request->post())->save();

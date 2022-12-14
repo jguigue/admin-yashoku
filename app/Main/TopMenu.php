@@ -52,38 +52,50 @@ class TopMenu
                 ]
             ],
             'recettes' => [
-                'icon' => 'home',
+                'icon' => 'anchor',
                 'title' => 'Recettes',
-                'route_name' => 'users-layout-1',
-                'params' => [
-                    'layout' => 'top-menu',
-                ],
-            ],
-            'categories-recettes' => [
-                'icon' => 'home',
-                'route_name' => 'categories-recettes',
-                'title' => 'Categories de recettes',
-                'params' => [
-                    'layout' => 'top-menu',
-                ],
+                'sub_menu' => [
+                    'liste-recettes' => [
+                        'icon' => '',
+                        'route_name' => 'dashboard-overview-1',
+                        'params' => [
+                            'layout' => 'top-menu',
+                        ],
+                        'title' => 'Overview 1'
+                    ],
+                    'liste-categories-recettes' => [
+                        'icon' => '',
+                        'route_name' => 'categoriesrecettes.index',
+                        'params' => [
+                            'layout' => 'top-menu',
+                        ],
+                        'title' => 'Catégories de recettes'
+                    ],
+                ]
             ],
             'ingredients' => [
-                'icon' => 'home',
+                'icon' => 'package',
                 'title' => 'Ingrédients',
-                'route_name' => 'users-layout-1',
-                'params' => [
-                    'layout' => 'top-menu',
-                ],
+                'sub_menu' => [
+                    'liste-ingredients' => [
+                        'icon' => '',
+                        'route_name' => 'liste-ingredients.index',
+                        'params' => [
+                            'layout' => 'top-menu',
+                        ],
+                        'title' => 'Liste des ingrédients'
+                    ],
+                    'categories-ingredients' => [
+                        'icon' => 'home',
+                        'route_name' => 'categoriesingredients.index',
+                        'title' => 'Categories ingrédients',
+                        'params' => [
+                            'layout' => 'top-menu',
+                        ],
+                    ],
+                ]
             ],
-
-            'categories-ingredients' => [
-                'icon' => 'home',
-                'route_name' => 'categories-ingredients',
-                'title' => 'Categories ingrédients',
-                'params' => [
-                    'layout' => 'top-menu',
-                ],
-            ],
+            
             'apps' => [
                 'icon' => 'activity',
                 'title' => 'Apps',

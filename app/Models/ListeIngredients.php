@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoriesIngredients extends Model
-{
+class ListeIngredients extends Model
+{   
     public function categories()
     {
-        return $this->belongsToMany(ListeIngredients::class);
+        return $this->AsOne(CategoriesRecettes::class);
     }
-    protected $table = 'categorie_ingredients';
+    protected $table = 'ingredients';
     protected $primaryKey = "id";
     protected $fillable = [
-        'nom_categorie',
+        'nom_ingredient',
+        'type_quantite',
+        'image',
     ];
     use HasFactory;
-    
 }
