@@ -16,7 +16,8 @@ class ListeIngredientsController extends Controller
     public function index()
     {
         $listeingredients = ListeIngredients::with('categories')->latest()->paginate(10);
-        return view('liste-ingredients.index', compact('listeingredients'));
+        $categoriesingredients = CategoriesIngredients::all();
+        return view('liste-ingredients.index', compact('categoriesingredients', 'listeingredients'));
     }
 
     /**
@@ -26,7 +27,8 @@ class ListeIngredientsController extends Controller
     */
     public function create()
     {
-        return view('liste-ingredients.create');
+        $categoriesingredients = CategoriesIngredients::all();
+        return view('liste-ingredients.create', compact('categoriesingredients', 'listeingredients'));
     }
 
     /**
@@ -40,11 +42,13 @@ class ListeIngredientsController extends Controller
         $request->validate([
             'nom_ingredient' => 'required',
             'type_quantite' => 'required',
-            'image' => 'required',
             'categorie_id' => 'required|exists:App\Models\CategoriesIngredients,id',
         ]);
-        
-        ListeIngredients::create($request->post());
+        ListeIngredients::create([
+            'nom_ingredient' => $request->nom_ingredient,
+            'type_quantite' => $request->type_quantite,
+            'categorie_id' => $request->categorie_id,
+        ]);
 
         return redirect()->route('liste-ingredients.index')->with('success','listeingredients has been created successfully.');
     }
@@ -68,6 +72,7 @@ class ListeIngredientsController extends Controller
     */
     public function edit(listeingredients $listeingredient)
     {
+        $categoriesingredients = CategoriesIngredients::all();
         return view('liste-ingredients.edit',compact('listeingredients'));
     }
 
@@ -83,9 +88,13 @@ class ListeIngredientsController extends Controller
         $request->validate([
             'nom_ingredient' => 'required',
             'type_quantite' => 'required',
-            'image' => 'required',
             'categorie_id' => 'required|exists:App\Models\CategoriesIngredients,id',
         ]);
+            $post-> nom_ingredient = $request->nom_ingredient;
+            $post-> type_quantite = $request->type_quantite;
+            $post-> categorie_id = $request->categorie_id;
+            $post->save();
+
         
         $listeingredient->fill($request->post())->save();
 

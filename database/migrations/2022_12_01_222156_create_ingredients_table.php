@@ -12,9 +12,7 @@ class CreateIngredientsTable extends Migration {
 			$table->increments('id');
 			$table->string('nom_ingredient', 200);
 			$table->string('type_quantite', 50);
-			$table->integer('categorie_id')->unsigned()->index();
-            $table->foreign('categorie_id')->references('id')->on('categorie_ingredients')->onDelete('cascade');
-			$table->string('categorie');
+            $table->foreignId('categorie_id')->on('categorie_ingredients')->onDelete('cascade');
 			$table->string('image', 255)->nullable();
 			$table->timestamps();
 		});

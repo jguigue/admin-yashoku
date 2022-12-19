@@ -28,9 +28,27 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <input type="text" name="nom_categorie" class="form-control mt-5"
-                                                    placeholder="Nom de la catégorie d'ingrédients">
-                                                @error('nom_categorie')
+                                                <input type="text" name="nom_ingredient" class="form-control mt-5"
+                                                    placeholder="Nom de l'ingrédient">
+                                                <select name="categorie_id" class="form-select mt-2 sm:mr-2">
+                                                    @foreach ($categoriesingredients as $categoriesingredient)
+                                                    <option value="{{$categoriesingredient->id}}">
+                                                        {{$categoriesingredient->nom_categorie}}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                                <select name="type_quantite" class="form-select mt-2 sm:mr-2">
+                                                    <option value="grammes">
+                                                        Grammes
+                                                    </option>
+                                                    <option value="litres">
+                                                        Litres
+                                                    </option>
+                                                    <option value="sans_unite">
+                                                        Sans unité
+                                                    </option>
+                                                </select>
+                                                @error('nom_ingredient')
                                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -88,24 +106,28 @@
             <tr>
                 <th class="whitespace-nowrap">ID</th>
                 <th class="whitespace-nowrap">Nom de l'ingrédient</th>
-                <th class="text-center whitespace-nowrap">Catégorie</th>
+                <th class="whitespace-nowrap">Catégorie</th>
+                <th class="whitespace-nowrap">Unitée</th>
                 <th class="text-center whitespace-nowrap">ACTIONS</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($listeingredients as $listeingredient)
-
+            <?php $count=0;?>
             <tr>
 
 
                 <td class="w-40">
                     {{ $listeingredient->id}}
                 </td>
-                <td>
+                <td class="w-40">
                     {{ $listeingredient->nom_ingredient }}
                 </td>
-                <td>
-                    {{ $listeingredient->categorie }}
+                <td class="w-40">
+                    {{ $listeingredient->categories->nom_categorie}}
+                </td>
+                <td class="w-40">
+                    {{ $listeingredient->type_quantite}}
                 </td>
                 <td class="table-report__action w-56">
                     <div class="flex justify-center items-center">
@@ -134,19 +156,42 @@
                                     <div class="modal-body p-0">
                                         <div class="p-5 text-center">
                                             <div class="text-3xl mt-5 mb-5">Créer une catégorie</div>
-                                            <form
-                                                action="{{ route('liste-ingredients.update',$listeingredient->id) }}"
+                                            <form action="{{ route('liste-ingredients.update',$listeingredient->id) }}"
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                                         <div class="form-group">
-                                                            <input type="text" name="nom_categorie"
+                                                            <input type="select" name="nom_categorie"
                                                                 class="form-control mt-5"
-                                                                value="{{ $listeingredient->nom_categorie }}"
-                                                                placeholder="Nom de la catégorie d'ingrédients">
+                                                                value="{{ $listeingredient->nom_ingredient }}"
+                                                                placeholder="Nom de l'ingrédient">
+                                                            <select name="categorie_id"
+                                                                class="form-select mt-2 sm:mr-2">
+                                                                @foreach ($categoriesingredients as
+                                                                $categoriesingredient)
+                                                                <option @selected($categoriesingredient->id ==
+                                                                    $listeingredient->categorie_id)
+                                                                    value="{{$categoriesingredient->id}}">{{$categoriesingredient->name}}
+                                                                </option>
+                                                                @endforeach
+                                                            </select>
+
+                                                            <select name="type_quantite"
+                                                                class="form-select mt-2 sm:mr-2">
+                                                                <option value="grammes">
+                                                                    Grammes
+                                                                </option>
+                                                                <option value="litres">
+                                                                    Litres
+                                                                </option>
+                                                                <option value="sans_unite">
+                                                                    Sans unité
+                                                                </option>
+                                                            </select>
                                                             @error('nom_categorie')
+
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}
                                                             </div>
                                                             @enderror
@@ -171,16 +216,14 @@
                                     <div class="p-5 text-center">
                                         <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
                                         <div class="text-3xl mt-5">Êtes-vous sûr ?</div>
-                                        <div class="text-slate-500 mt-2">Voulez vous vraiment supprimer cette
-                                            catégorie d'ingrédient ?
+                                        <div class="text-slate-500 mt-2">Voulez vous vraiment cet ingrédient ?
                                             <br>Il est impossible de revenir en arrière après.
                                         </div>
                                     </div>
                                     <div class="px-5 pb-8 text-center flex justify-center">
                                         <button type="button" data-tw-dismiss="modal"
                                             class="btn btn-outline-secondary w-24 mr-1">Annuler</button>
-                                        <form
-                                            action="{{ route('liste-ingredients.destroy',$listeingredient->id) }}"
+                                        <form action="{{ route('liste-ingredients.destroy',$listeingredient->id) }}"
                                             method="Post">
 
                                             @csrf
