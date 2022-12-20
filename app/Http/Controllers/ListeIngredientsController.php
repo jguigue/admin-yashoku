@@ -70,10 +70,11 @@ class ListeIngredientsController extends Controller
     * @param  \App\listeingredients  $listeingredient
     * @return \Illuminate\Http\Response
     */
-    public function edit(listeingredients $listeingredient)
+    public function edit(Listeingredients $listeingredients)
     {
         $categoriesingredients = CategoriesIngredients::all();
-        return view('liste-ingredients.edit',compact('listeingredients'));
+        
+        return view('liste-ingredients.edit',compact('categoriesingredients', 'listeingredients'));
     }
 
     /**
@@ -83,22 +84,20 @@ class ListeIngredientsController extends Controller
     * @param  \App\listeingredients  $listeingredient
     * @return \Illuminate\Http\Response
     */
-    public function update(Request $request, listeingredients $listeingredient)
+    public function update(Request $request, Listeingredients $listeingredients)
     {
         $request->validate([
             'nom_ingredient' => 'required',
             'type_quantite' => 'required',
             'categorie_id' => 'required|exists:App\Models\CategoriesIngredients,id',
         ]);
-            $post-> nom_ingredient = $request->nom_ingredient;
-            $post-> type_quantite = $request->type_quantite;
-            $post-> categorie_id = $request->categorie_id;
-            $post->save();
-
         
-        $listeingredient->fill($request->post())->save();
+        $listeingredients-> nom_ingredient = $request->nom_ingredient;
+        $listeingredients-> type_quantite = $request->type_quantite;
+        $listeingredients-> categorie_id = $request->categorie_id;
+        $listeingredients->save();
 
-        return redirect()->route('liste-ingredients.index')->with('success','listeingredients Has Been updated successfully');
+        return redirect()->route('liste-ingredients.index.index')->with('status', 'Post Updated Successfully');
     }
 
     /**
@@ -107,9 +106,9 @@ class ListeIngredientsController extends Controller
     * @param  \App\listeingredients  $listeingredient
     * @return \Illuminate\Http\Response
     */
-    public function destroy(listeingredients $listeingredient)
+    public function destroy(ListeIngredients $listeingredients)
     {
-        $listeingredient->delete();
+        $listeingredients->delete();
         return redirect()->route('liste-ingredients.index')->with('success','listeingredients has been deleted successfully');
     }
 }

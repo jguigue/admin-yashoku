@@ -169,13 +169,9 @@
                                                                 placeholder="Nom de l'ingrédient">
                                                             <select name="categorie_id"
                                                                 class="form-select mt-2 sm:mr-2">
-                                                                @foreach ($categoriesingredients as
-                                                                $categoriesingredient)
-                                                                <option @selected($categoriesingredient->id ==
-                                                                    $listeingredient->categorie_id)
-                                                                    value="{{$categoriesingredient->id}}">{{$categoriesingredient->name}}
+                                                                <option
+                                                                    value=" {{ $listeingredient->categories->nom_categorie }}">
                                                                 </option>
-                                                                @endforeach
                                                             </select>
 
                                                             <select name="type_quantite"
@@ -228,7 +224,10 @@
 
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="submit" class="px-4 py-2 text-white bg-red-700 rounded"
+                                                value="Delete">
                                         </form>
                                     </div>
                                 </div>
